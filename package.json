@@ -9,7 +9,11 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "fine-uploader": "^5.16.0-RC4",
+    "swiper": "^6.8.4",
     "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-fineuploader": "^2.0.0-rc.9",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
