@@ -1,12 +1,8 @@
 <template>
   <div id="app" class="app">
-    <div class="swiper mySwiper">
+    <div class="swiper mySwiper swiper-container">
       <div class="swiper-wrapper">
-        <div
-          v-for="image in this.imagesData"
-          :key="`${image.id}-swiper`"
-          class="swiper-slide"
-        >
+        <div v-for="image in this.imagesData" :key="`${image.id}-swiper`" class="swiper-slide">
           <img :src="image.file" alt="" />
         </div>
       </div>
@@ -42,14 +38,20 @@ export default {
   data() {
     const uploader = new FineUploaderTraditional({
       options: {
-        deleteFile: {
-          enabled: true,
-          endpoint: "my/upload/endpoint",
-        },
         request: {
-          endpoint: "my/upload/endpoint",
+          endpoint: "https://api.imgbb.com/1/upload",
+          inputName: "image",
+          params: {
+            key: "37b80921b067cb393c9db344fdd47468",
+          },
         },
       },
+    });
+    uploader.on("complete", (_id, _name, res) => {
+      if (res.status == 200) {
+        const url = res.data.url;
+        console.log(url);
+      }
     });
     return {
       swiper: null,
@@ -104,19 +106,15 @@ button {
   outline: none;
   cursor: pointer;
 }
-.swiper {
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  overflow: hidden;
-  list-style: none;
-  padding: 0;
-  z-index: 1;
-}
 img {
   width: 100%;
 }
 .sm-pics {
   width: 100px;
+}
+</style>
+<style>
+.vue-fine-uploader-gallery-file {
+  height: auto;
 }
 </style>
