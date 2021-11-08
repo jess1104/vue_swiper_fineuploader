@@ -10,15 +10,15 @@ export default new Vuex.Store({
     imagesData: [
       {
         id: 123,
-        file: "https://ppt.cc/fGBeox@.png",
+        url: "https://ppt.cc/fGBeox@.png",
       },
       {
         id: 456,
-        file: "https://ppt.cc/fWZz8x@.jpg",
+        url: "https://ppt.cc/fWZz8x@.jpg",
       },
       {
         id: 789,
-        file: "https://ppt.cc/fP7RDx@.jpg",
+        url: "https://ppt.cc/fP7RDx@.jpg",
       },
     ],
   },

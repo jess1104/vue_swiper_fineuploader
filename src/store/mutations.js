@@ -1,11 +1,13 @@
 export default {
+  ADD_IMGS(state, images) {
+    state.imagesData = images.map((item) => item);
+  },
   DELETE_IMG(state, imgId) {
     state.imagesData = state.imagesData.filter((item) => {
       return item.id !== imgId;
     });
   },
   UP_IMG(state, upIndex) {
-    console.log(upIndex);
     state.imagesData = state.imagesData.map((item, index) => {
       if (index === upIndex - 1) {
         return state.imagesData[upIndex];
@@ -17,7 +19,6 @@ export default {
     });
   },
   DOWN_IMG(state, downIndex) {
-    console.log(downIndex);
     state.imagesData = state.imagesData.map((item, index) => {
       if (index === downIndex + 1) {
         return state.imagesData[downIndex];
