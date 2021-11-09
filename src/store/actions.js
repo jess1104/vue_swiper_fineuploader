@@ -1,9 +1,9 @@
 export default {
-  addImgs({ commit }, images) {
-    commit("ADD_IMGS", images);
+  addImgs({ commit }, imgUrl) {
+    let image = { id: Date.now(), url: imgUrl };
+    commit("ADD_IMG", image);
   },
   deleteImg({ commit }, imgId) {
-    console.log(imgId);
     commit("DELETE_IMG", imgId);
   },
   upImg({ commit }, upIndex) {

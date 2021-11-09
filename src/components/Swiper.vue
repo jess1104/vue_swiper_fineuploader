@@ -1,22 +1,16 @@
 <template>
   <div class="container">
-    <div class="swiper mySwiper swiper-container">
-      <div class="swiper-wrapper">
-        <div
-          v-for="image in this.imagesData"
-          :key="`${image.id}-swiper`"
-          class="swiper-slide"
-        >
-          <img :src="image.url" alt="" />
-        </div>
-      </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
-    </div>
+    <swiper class="swiper" :options="swiperOption">
+      <swiper-slide v-for="image in images" :key="`${image.id}-swiper`">
+        <img :src="image.url" />
+      </swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
     <ul>
       <li v-for="(image, index) in images" :key="`${image.id}-list`">
-        <img class="sm-pics" :src="image.url" alt="" />
+        <img class="sm-pics" :src="image.url" />
         <button @click="upItem(index)">
           <i class="fas fa-chevron-up"></i>
         </button>
@@ -33,27 +27,23 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import Swiper, { Navigation, Pagination } from "swiper";
-import "swiper/swiper-bundle.min.css";
-Swiper.use([Navigation, Pagination]);
+
 export default {
   data() {
     return {
-      swiper: null,
+      swiperOption: {
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      },
     };
   },
-  watch: {
-    images() {
-      if (this.swiper) {
-        this.swiper.destroy();
-        // 有更新過 images 的內容，等畫面渲染完成後
-        // 使用渲染後的 HTML 初始化 Swiper
-        this.$nextTick(() => {
-          this.initSwiper();
-        });
-      }
-    },
-  },
+
   computed: {
     ...mapState(["imagesData"]),
     images() {
@@ -62,23 +52,10 @@ export default {
       });
     },
   },
-  mounted() {
-    this.initSwiper();
-  },
+
   methods: {
     ...mapActions(["deleteImg", "upImg", "downImg"]),
-    initSwiper() {
-      this.swiper = new Swiper(".mySwiper", {
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-      });
-    },
+
     upItem(upIndex) {
       if (upIndex <= 0) {
         return;
@@ -95,7 +72,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 ul {
   list-style: none;
   padding: 0;

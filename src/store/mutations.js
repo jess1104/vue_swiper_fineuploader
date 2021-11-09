@@ -1,6 +1,6 @@
 export default {
-  ADD_IMGS(state, images) {
-    state.imagesData = images.map((item) => item);
+  ADD_IMG(state, image) {
+    state.imagesData.push(image);
   },
   DELETE_IMG(state, imgId) {
     state.imagesData = state.imagesData.filter((item) => {
