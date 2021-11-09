@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide v-for="image in images" :key="`${image.id}-swiper`">
+      <swiper-slide v-for="image in imagesData" :key="`${image.id}-swiper`">
         <img :src="image.url" />
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -9,7 +9,7 @@
       <div class="swiper-button-next" slot="button-next"></div>
     </swiper>
     <ul>
-      <li v-for="(image, index) in images" :key="`${image.id}-list`">
+      <li v-for="(image, index) in imagesData" :key="`${image.id}-list`">
         <img class="sm-pics" :src="image.url" />
         <button @click="upItem(index)">
           <i class="fas fa-chevron-up"></i>
@@ -46,11 +46,6 @@ export default {
 
   computed: {
     ...mapState(["imagesData"]),
-    images() {
-      return this.imagesData.map((item) => {
-        return item;
-      });
-    },
   },
 
   methods: {
@@ -63,7 +58,7 @@ export default {
       this.upImg(upIndex);
     },
     downItem(downIndex) {
-      if (downIndex >= this.images.length - 1) {
+      if (downIndex >= this.imagesData.length - 1) {
         return;
       }
       this.downImg(downIndex);
